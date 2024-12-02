@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:wpf_PE2_mastermind2"
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="860">
-    <DockPanel Margin="0,0,0,-16">
+    <DockPanel Margin="0,0,0,-16" Loaded="DockPanel_Loaded">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Menu">
                 <MenuItem Header="Bestand">
-                    <MenuItem Header="Nieuw Spel" Click="MenuItem_Click"></MenuItem>
-                    <MenuItem Header="Highscores" Click="MenuItem_Click_Restart"></MenuItem>
-                    <MenuItem Header="Afsluiten" Click="MenuItem_Click_Restart"></MenuItem>
+                    <MenuItem Header="Nieuw Spel" Click="MenuItem_Click_NieuwSpel"></MenuItem>
+                    <MenuItem Header="Highscores"></MenuItem>
+                    <MenuItem Header="Afsluiten" Click="MenuItem_Click_Afsluit"></MenuItem>
                 </MenuItem>
        
                 <MenuItem Header="Instellingen">

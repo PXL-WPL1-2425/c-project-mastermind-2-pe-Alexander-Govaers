@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
 
 namespace wpf_PE2_mastermind2
 {
@@ -93,13 +95,15 @@ namespace wpf_PE2_mastermind2
         /// <param name="e">Het laden van u venster</param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
+           
 
             GenerateRandomColors();
 
             pointslabel.Content = $"Jouw huidige score: {points}/100";
             solutionTextBox.Visibility = Visibility.Hidden;
 
-
+          
         }
         /// <summary>
         /// Deze method maakt willerkeurige kleuren
@@ -223,7 +227,7 @@ namespace wpf_PE2_mastermind2
         /// <param name="e">het klik event van de knop</param>
         private void checkButton_Click(object sender, RoutedEventArgs e)
         {
-
+           
             LabelChanged(label1, 0, comboBox1);
             LabelChanged(label2, 1, comboBox2);
             LabelChanged(label3, 2, comboBox3);
@@ -242,21 +246,12 @@ namespace wpf_PE2_mastermind2
 
                 timer.Stop();
                 timerTextBlock.Text = "";
-                MessageBoxResult result = MessageBox.Show($"You Failed!" +
-                 $" De juiste kleurencombinatie: {kleuren[0]}, {kleuren[1]}, {kleuren[2]}, {kleuren[3]}  \r\n " +
-                 $"Wil je opnieuw proberen?",
-                 "Play Again?",
-                 MessageBoxButton.YesNo, MessageBoxImage.Information);
+                pointslabel.Content = $"Jouw huidige score: 0/100";
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    ResetGame();
-                }
-                else
-                {
-                    endGame = true;
-                    Close();
-                }
+            }
+            if (attempts <= 0)
+            {
+                pointslabel.Content = $"Jouw huidige score: 0/100";
             }
 
         }
@@ -466,6 +461,7 @@ namespace wpf_PE2_mastermind2
         /// </summary>
         private void ResetGame()
         {
+           
             points = 100;
             attempts = 0;
             UpdateTitle();
@@ -484,15 +480,51 @@ namespace wpf_PE2_mastermind2
             pointslabel.Content = $"Jouw huidige score: {points}/100";
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_NieuwSpel(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            points = 100;
+            attempts = 0;
+            UpdateTitle();
+            GenerateRandomColors();
+            solutionTextBox.Text = "";
+
+            comboBox1.Text = "";
+            label1.BorderThickness = new Thickness(0);
+            comboBox2.Text = "";
+            label2.BorderThickness = new Thickness(0);
+            comboBox3.Text = "";
+            label3.BorderThickness = new Thickness(0);
+            comboBox4.Text = "";
+            label4.BorderThickness = new Thickness(0);
+
+            historiekgrid.Children.Clear();
+            pointslabel.Content = $"Jouw huidige score: {points}/100";
+           
         }
 
-        private void MenuItem_Click_Restart(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_Afsluit(object sender, RoutedEventArgs e)
         {
-            ResetGame();
+            this.Close();
 
+        }
+
+        private string StartGame()
+        {
+           
+            string inputNaam = Interaction.InputBox("Voer een correcte naam in:", "Mastermind");
+
+            while (string.IsNullOrEmpty(inputNaam))
+            {
+                MessageBox.Show("Geef een correcte naam!", "Foutieve invoer");
+                inputNaam = Interaction.InputBox("Geef een naam", "Invoer");
+            }
+
+            return inputNaam;
+        }
+
+        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartGame();
         }
     }
 }
