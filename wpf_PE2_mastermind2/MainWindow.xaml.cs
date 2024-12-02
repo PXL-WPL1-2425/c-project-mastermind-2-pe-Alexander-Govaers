@@ -504,8 +504,8 @@ namespace wpf_PE2_mastermind2
 
         private void MenuItem_Click_Afsluit(object sender, RoutedEventArgs e)
         {
-            this.Close();
 
+            this.Close();
         }
 
         private string StartGame()
