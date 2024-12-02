@@ -526,5 +526,25 @@ namespace wpf_PE2_mastermind2
         {
             StartGame();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AantalPogingen();
+        }
+
+        private int AantalPogingen()
+        {
+            bool validInput = int.TryParse(Interaction.InputBox("Hoeveel pogingen wil je afleggen?", "Mastermind"), out int inputUser);
+            string pogingen = Interaction.InputBox("Hoeveel pogingen wil je afleggen?", "Mastermind");
+
+            while (validInput == false )
+            {
+                MessageBox.Show("Geef een getal!", "Foutieve invoer");
+                string attempt = Interaction.InputBox("Geef een getal", "Invoer");
+            }
+
+            return attempts;
+        }
+
     }
 }

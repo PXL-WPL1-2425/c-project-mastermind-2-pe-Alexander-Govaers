@@ -16,7 +16,7 @@
                 </MenuItem>
        
                 <MenuItem Header="Instellingen">
-                    <MenuItem Header="Aantal pogingen"></MenuItem>
+                    <MenuItem Header="Aantal pogingen" Click="MenuItem_Click"></MenuItem>
                 </MenuItem>
                 
               
